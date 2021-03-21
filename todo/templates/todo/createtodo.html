@@ -1,0 +1,26 @@
+{% extends "todo/base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+<h2> {{ error }} </h2>
+    <h1>Create a To-do</h1>
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="input-field col s12">
+          {{ form.title }}
+          <label for="title">Title</label>
+        </div>
+
+        <div class="input-field col s12">
+          {% render_field form.memo class+="materialize-textarea" %}
+          <label for="memo">Memo</label>
+        </div>
+
+        <label>
+            {% render_field form.important class+="filled-in" type="checkbox"%}
+            <span>Important</span>
+        </label>
+
+        <br><br>
+        <button class="waves-effect waves-light btn-large" type="submit">Create</button>
+    </form>
+{% endblock %}

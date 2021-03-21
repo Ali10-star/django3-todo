@@ -1,0 +1,60 @@
+{% extends "todo/base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+    {{ error }}
+    <div class="container">
+        <h1>View,edit or delete this Todo</h1>
+        <div class="row">
+        <div class="col s12">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.title }}
+                    <label for="title">Title</label>
+                </div>
+
+                <div class="input-field">
+                    {% render_field form.memo class+="materialize-textarea" %}
+                    <label for="memo">Memo</label>
+                </div>
+
+                <label>
+                    {% render_field form.important class+="filled-in" type="checkbox"%}
+                    <span>Important</span>
+                </label>
+                <br><br>
+                {% if todo.datecompleted %}
+                    <mark>This todo was completed</mark>
+                {% endif %}
+                <br><br>
+                <button class="waves-effect waves-light btn-small blue" type="submit">Save</button>
+            </form>
+            </div>
+        </div>
+        <div class="row">
+            {% if not todo.datecompleted %}
+                <div class="col s10">
+                    <form action="{% url 'completetodo' todo.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="waves-effect waves-light btn-small green lighten-1" type="submit">Complete</button>
+                    </form>
+                </div>
+            {% endif %}
+            {% if not todo.datecompleted %}
+                <div class="col s2">
+                    <form action="{% url 'deletetodo' todo.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="right waves-effect waves-light btn-small red darken-1" type="submit">Delete</button>
+                    </form>
+                </div>
+            {% else %}
+                <div class="col s2">
+                    <form action="{% url 'deletetodo' todo.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="left waves-effect waves-light btn-small red darken-1" type="submit">Delete</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+     </div>
+{% endblock %}

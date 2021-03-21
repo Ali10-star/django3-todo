@@ -1,0 +1,32 @@
+{% extends "todo/base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+<h1>Login</h1>
+<form action="" method="POST">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col s12">
+          <!-- {{ form.username }} -->
+          {% render_field form.username type="text" %}
+          <label for="password">Username</label>
+    </div>
+    <div class="input-field col s12 validate">
+        {% render_field form.password onfocus="showp();" onfocusout="hidep()" type="password" %}
+        <!--<input id="password" type="password" class="validate"> -->
+        <label for="password">Password</label>
+    <br><br>
+    <button class="btn btn-large green accent-3" type="submit">Log in</button>
+</form>
+<script>
+    function showp() {
+        $(document).ready(function(){
+            $("#alert_box_p1").slideDown()
+ 	    });
+    }
+    function hidep() {
+        $(document).ready(function(){
+            $("#alert_box_p1").slideUp();
+ 	    });
+    }
+</script>
+{% endblock %}

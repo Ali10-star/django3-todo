@@ -1,0 +1,21 @@
+{% extends "todo/base.html" %}
+{% block content %}
+    <div class="row">
+        <div class="col s12">
+            <ul class="collection with-header" style="margin-top : 50px">
+            <li class="collection-header"><h3>Completed todos</h3></li>
+            {% for todo in todos %}
+                {% if todo.important %}
+                        <li class="collection-item red lighten-4">
+                            <div>{{ todo.title }} - <small>Completed at : {{ todo.datecompleted|date:'M j Y H:i' }}</small><a href="{% url 'viewtodo' todo.id %}" class="secondary-content"><i class="material-icons">wysiwyg</i></a></div></li>
+                        </li>
+                {% else %}
+                        <li class="collection-item">
+                            <div>{{ todo.title }} - <small>Completed at : {{ todo.datecompleted|date:'M j Y H:i' }}</small><a href="{% url 'viewtodo' todo.id %}" class="secondary-content"><i class="material-icons">wysiwyg</i></a></div></li>
+                        </li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
